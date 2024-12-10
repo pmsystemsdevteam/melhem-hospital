@@ -8,6 +8,14 @@ import DepartmentCards from "../../components/DepartmentCards";
 import HowWeWork from "../../components/HowWeWork";
 import HowWeWorkWay from "../../components/HowWeWorkWay";
 import MeetOurDoctors from "../../components/MeetOurDoctors";
+import OurBlog from "../../components/OurBlog";
+import WhyChooseUs from "../../components/WhyChooseUs";
+import Appointment from "../../components/Appointment";
+import FaqHead from "../../components/FaqHead";
+import Faq from "../../components/Faq";
+import WhyChooseUsBox from "../../components/WhyChooseUsBox";
+import TestimonialsHead from "../../components/TestimonialsHead";
+import Testimonials from "../../components/Testimonials";
 Modal.setAppElement('#root');
 
 function Home() {
@@ -18,7 +26,14 @@ function Home() {
     const [howWorkModalIsOpen, setHowWorkModalIsOpen] = useState(false)
     const [howWeWorkWayIsOpen, setHowWeWorkWayIsOpen] = useState(false)
     const [meetDoctorsModalIsOpen, setMeetDoctorsModalIsOpen] = useState(false)
-
+    const [ourBlogModalIsOpen, setOurBlogModalIsOpen] = useState(false)
+    const [whyChooseUsModalIsOpen, setWhyChooseUsModalIsOpen] = useState(false)
+    const [whyChooseUsBoxModalIsOpen, setWhyChooseUsBoxModalIsOpen] = useState(false)
+    const [testimonailsHeadModalIsOpen, settestimonailsHeadModalIsOpen] = useState(false)
+    const [testimonailsModalIsOpen, setTestimonailsModalIsOpen] = useState(false)
+    const [faqHeadModalIsOpen, setFaqHeadModalIsOpen] = useState(false)
+    const [faqModalIsOpen, setFaqModalIsOpen] = useState(false)
+    const [appointmentModalIsOpen, setAppointmentModalIsOpen] = useState(false)
 
     const customStyles = {
         overlay: {
@@ -52,6 +67,14 @@ function Home() {
                 <button onClick={() => setHowWorkModalIsOpen(true)}>Change How We Work text</button>
                 <button onClick={() => setHowWeWorkWayIsOpen(true)}>Change How We Work Way text</button>
                 <button onClick={() => setMeetDoctorsModalIsOpen(true)}>Change Meet Our Doctor text</button>
+                <button onClick={() => setOurBlogModalIsOpen(true)}>Change Our Blog text</button>
+                <button onClick={() => setWhyChooseUsModalIsOpen(true)}>Change Why Choose Us Head text</button>
+                <button onClick={() => setWhyChooseUsBoxModalIsOpen(true)}>Change Why Choose Us Cards text</button>
+                <button onClick={() => settestimonailsHeadModalIsOpen(true)}>Change Testimonials Head text</button>
+                <button onClick={() => setTestimonailsModalIsOpen(true)}>Change Testimonials text</button>
+                <button onClick={() => setFaqHeadModalIsOpen(true)}>Change FAQ Head text</button>
+                <button onClick={() => setFaqModalIsOpen(true)}>Change FAQ text</button>
+                <button onClick={() => setAppointmentModalIsOpen(true)}>Change Appointment text</button>
             </div>
 
             {/* Header Modal */}
@@ -74,6 +97,30 @@ function Home() {
 
             {/* Meet our doctors Modal */}
             <MeetOurDoctors Props={{ meetDoctorsModalIsOpen, setMeetDoctorsModalIsOpen, customStyles }} />
+
+            {/* Our Blog Modal */}
+            <OurBlog Props={{ ourBlogModalIsOpen, setOurBlogModalIsOpen, customStyles }} />
+
+            {/* Why Choose Us Modal */}
+            <WhyChooseUs Props={{ whyChooseUsModalIsOpen, setWhyChooseUsModalIsOpen, customStyles }} />
+
+            {/* Why Choose Us Modal */}
+            <WhyChooseUsBox Props={{ whyChooseUsBoxModalIsOpen, setWhyChooseUsBoxModalIsOpen, customStyles }} />
+
+            {/* testimonailsHeadModal Modal */}
+            <TestimonialsHead Props={{ settestimonailsHeadModalIsOpen, testimonailsHeadModalIsOpen, customStyles }} />
+
+            {/* testimonails Modal */}
+            <Testimonials Props={{ testimonailsModalIsOpen, setTestimonailsModalIsOpen, customStyles }} />
+
+            {/* Faq Modal */}
+            <Faq Props={{ faqModalIsOpen, setFaqModalIsOpen, customStyles }} />
+
+            {/* Faq Head Modal */}
+            <FaqHead Props={{ faqHeadModalIsOpen, setFaqHeadModalIsOpen, customStyles }} />
+
+            {/* Appointment Modal */}
+            <Appointment Props={{ appointmentModalIsOpen, setAppointmentModalIsOpen, customStyles }} />
         </section>
     );
 }

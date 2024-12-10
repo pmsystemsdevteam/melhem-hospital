@@ -22,7 +22,7 @@ function OurDepartment({ ...Props }) {
             <button className="close-button" onClick={() => Props.Props.setOurDepartmentModalIsOpen(false)}>x</button>
             <h2>Our Department</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
+                <div className='card'>
                     <label htmlFor=""> Our Department Head Text </label>
                     <input
                         defaultValue={''}
@@ -53,31 +53,30 @@ function OurDepartment({ ...Props }) {
                     />
                     {errors.departmentHeadTextArab && <p className="error">{errors.departmentHeadTextArab.message}</p>}
                 </div>
-                <div>
+                <div className='card'>
                     <label htmlFor=""> Our Department Description Text </label>
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in English..."
                         {...register("departmentDescriptionEng", { required: "Department description is required" })}
                     />
                     {errors.departmentDescriptionEng && <p className="error">{errors.departmentDescriptionEng.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Azerbaijan..."
                         {...register("departmentDescriptionAze", { required: "Department description is required" })}
                     />
                     {errors.departmentDescriptionAze && <p className="error">{errors.departmentDescriptionAze.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Russian..."
                         {...register("departmentDescriptionRus", { required: "Department description is required" })}
                     />
                     {errors.departmentDescriptionRus && <p className="error">{errors.departmentDescriptionRus.message}</p>}
-                    <input
-
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Arabic..."

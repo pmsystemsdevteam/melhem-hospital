@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from 'react-modal';
+import { MdDeleteOutline } from "react-icons/md";
 Modal.setAppElement('#root');
 
 
@@ -76,7 +77,7 @@ function DepartmentCards({ ...Props }) {
         },
     ])
 
-    const { register, handleSubmit,reset,  formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = () => {
         reset()
         Props.Props.setDepartmentCardsIsOpen(false)
@@ -117,6 +118,10 @@ function DepartmentCards({ ...Props }) {
         setDepartmentCardsData([...departmentCardsData, newCard]);
     };
 
+    const deleteCard = (id) => {
+        setDepartmentCardsData(departmentCardsData.filter(data => data.id !== id))
+    }
+
     return (
         <Modal
             className={'modal'}
@@ -130,82 +135,80 @@ function DepartmentCards({ ...Props }) {
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* Add form fields for Four box */}
                 {departmentCardsData.map((item, index) => (
-                    <div key={item.id}>
+                    <div className="card" key={item?.id}>
+                        {departmentCardsData.length > 1 &&
+                            < MdDeleteOutline onClick={() => deleteCard(item?.id)} className="delete-icon" />
+                        }
                         <h3 htmlFor=""> {`${index + 1}'th`} Card</h3>
                         <label htmlFor="">Card Head Text</label>
                         <input
                             defaultValue={''}
                             type="text"
                             placeholder="Card head text in English..."
-                            {...register(`card${index + 1}HeadTextEng`, { required: "Card head text is required" })}
+                            {...register(`card[${index}].HeadTextEng`, { required: "Card head text is required" })}
                         />
-                        {errors[`card${index + 1}HeadTextEng`] && <p className="error">{errors[`card${index + 1}HeadTextEng`].message}</p>}
+                        {errors[`card[${index}].HeadTextEng`] && <p className="error">{errors[`card[${index}].HeadTextEng`].message}</p>}
 
                         <input
                             defaultValue={''}
                             type="text"
                             placeholder="Card head text in Azerbaijan..."
-                            {...register(`card${index + 1}HeadTextAze`, { required: "Card head text is required" })}
+                            {...register(`card[${index}].HeadTextAze`, { required: "Card head text is required" })}
                         />
-                        {errors[`card${index + 1}HeadTextAze`] && <p className="error">{errors[`card${index + 1}HeadTextAze`].message}</p>}
+                        {errors[`card[${index}].HeadTextAze`] && <p className="error">{errors[`card[${index}].HeadTextAze`].message}</p>}
                         <input
                             defaultValue={''}
                             type="text"
                             placeholder="Card head text in Russian..."
-                            {...register(`card${index + 1}HeadTextRus`, { required: "Card head text is required" })}
+                            {...register(`card[${index}].HeadTextRus`, { required: "Card head text is required" })}
                         />
-                        {errors[`card${index + 1}HeadTextRus`] && <p className="error">{errors[`card${index + 1}HeadTextRus`].message}</p>}
+                        {errors[`card[${index}].HeadTextRus`] && <p className="error">{errors[`card[${index}].HeadTextRus`].message}</p>}
                         <input
                             defaultValue={''}
                             type="text"
                             placeholder="Card head text in Arabic..."
-                            {...register(`card${index + 1}HeadTextArab`, { required: "Card head text is required" })}
+                            {...register(`card[${index}].HeadTextArab`, { required: "Card head text is required" })}
                         />
-                        {errors[`card${index + 1}HeadTextArab`] && <p className="error">{errors[`card${index + 1}HeadTextArab`].message}</p>}
+                        {errors[`card[${index}].HeadTextArab`] && <p className="error">{errors[`card[${index}].HeadTextArab`].message}</p>}
 
 
                         <label htmlFor="">Card Description Text</label>
-                        <input
+                        <textarea
                             defaultValue={''}
                             type="text"
                             placeholder="Card Description text in English..."
-                            {...register(`card${index + 1}DescriptionTextEng`, { required: "Card Description text is required" })}
+                            {...register(`card[${index}].DescriptionTextEng`, { required: "Card Description text is required" })}
 
                         />
-                        {errors[`card${index + 1}DescriptionTextEng`] && <p className="error">{errors[`card${index + 1}DescriptionTextEng`].message}</p>}
-                        <input
+                        {errors[`card[${index}].DescriptionTextEng`] && <p className="error">{errors[`card[${index}].DescriptionTextEng`].message}</p>}
+                        <textarea
                             defaultValue={''}
                             type="text"
                             placeholder="Card Description text in Azerbaijan..."
-                            {...register(`card${index + 1}DescriptionTextAze`, { required: "Card Description text is required" })}
+                            {...register(`card[${index}].DescriptionTextAze`, { required: "Card Description text is required" })}
                         />
-                        {errors[`card${index + 1}DescriptionTextAze`] && <p className="error">{errors[`card${index + 1}DescriptionTextAze`].message}</p>}
-                        <input
+                        {errors[`card[${index}].DescriptionTextAze`] && <p className="error">{errors[`card[${index}].DescriptionTextAze`].message}</p>}
+                        <textarea
                             defaultValue={''}
                             type="text"
                             placeholder="Card Description text in Russian..."
-                            {...register(`card${index + 1}DescriptionTextRus`, { required: "Card Description text is required" })}
+                            {...register(`card[${index}].DescriptionTextRus`, { required: "Card Description text is required" })}
                         />
-                        {errors[`card${index + 1}DescriptionTextRus`] && <p className="error">{errors[`card${index + 1}DescriptionTextRus`].message}</p>}
-                        <input
+                        {errors[`card[${index}].DescriptionTextRus`] && <p className="error">{errors[`card[${index}].DescriptionTextRus`].message}</p>}
+                        <textarea
                             defaultValue={''}
                             type="text"
                             placeholder="Card Description text in Arabic..."
-                            {...register(`card${index + 1}DescriptionTextArab`, { required: "Card Description text is required" })}
+                            {...register(`card[${index}].DescriptionTextArab`, { required: "Card Description text is required" })}
                         />
-                        {errors[`card${index + 1}DescriptionTextArab`] && <p className="error">{errors[`card${index + 1}DescriptionTextArab`].message}</p>}
-                        <div>
-                            <div>
-
-                                <input
-                                    type="file"
-                                    {...register(`card${index + 1}logo`, { required: "Card logo is required" })}
-                                    onChange={(e) => handlelogo(e, index)}
-                                />
-                                {item.url && <img src={item.url} alt="Preview" />}
-
-                            </div>
-                            {/* {errors.cardOnelogo && <p className="error">{errors.cardOnelogo.message}</p>} */}
+                        {errors[`card[${index}].DescriptionTextArab`] && <p className="error">{errors[`card[${index}].DescriptionTextArab`].message}</p>}
+                        <div className="file">
+                            <input
+                                type="file"
+                                {...register(`card[${index}].logo`, { required: "Card logo is required" })}
+                                onChange={(e) => handlelogo(e, index)}
+                            />
+                            {item.url && <img src={item.url} alt="Preview" />}
                         </div>
                         <hr />
                     </div>

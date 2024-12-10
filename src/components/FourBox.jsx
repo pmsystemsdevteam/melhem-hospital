@@ -58,7 +58,7 @@ function FourBox({ ...Props }) {
             <h2>Four box text</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* Add form fields for Four box */}
-                <div>
+                <div className='card'>
                     <h3 htmlFor=""> First Card </h3>
                     <label htmlFor="">Card Head Text</label>
                     <input
@@ -92,28 +92,28 @@ function FourBox({ ...Props }) {
 
 
                     <label htmlFor="">Card Description Text</label>
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in English..."
                         {...register("cardOneDescriptionTextEng", { required: "Card Description text is required" })}
                     />
                     {errors.cardOneDescriptionTextEng && <p className="error">{errors.cardOneDescriptionTextEng.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in Azerbaijan..."
                         {...register("cardOneDescriptionTextAze", { required: "Card Description text is required" })}
                     />
                     {errors.cardOneDescriptionTextAze && <p className="error">{errors.cardOneDescriptionTextAze.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in Russian..."
                         {...register("cardOneDescriptionTextRus", { required: "Card Description text is required" })}
                     />
                     {errors.cardOneDescriptionTextRus && <p className="error">{errors.cardOneDescriptionTextRus.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in Arabic..."
@@ -136,7 +136,7 @@ function FourBox({ ...Props }) {
                     </div>
                     <hr />
                 </div>
-                <div>
+                <div className='card'>
                     <h3 htmlFor=""> Second Card </h3>
                     <label htmlFor="">Card Head Text</label>
                     <input
@@ -169,28 +169,28 @@ function FourBox({ ...Props }) {
                     {errors.cardTwoHeadTextArab && <p className="error">{errors.cardTwoHeadTextArab.message}</p>}
 
                     <label htmlFor="">Card Description Text</label>
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in English..."
                         {...register("cardTwoDescriptionTextEng", { required: "Card Description text is required" })}
                     />
                     {errors.cardTwoDescriptionTextEng && <p className="error">{errors.cardTwoDescriptionTextEng.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in Azerbaijan..."
                         {...register("cardTwoDescriptionTextAze", { required: "Card Description text is required" })}
                     />
                     {errors.cardTwoDescriptionTextAze && <p className="error">{errors.cardTwoDescriptionTextAze.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in Russian..."
                         {...register("cardTwoDescriptionTextRus", { required: "Card Description text is required" })}
                     />
                     {errors.cardTwoDescriptionTextRus && <p className="error">{errors.cardTwoDescriptionTextRus.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in Arabic..."
@@ -213,7 +213,7 @@ function FourBox({ ...Props }) {
                     </div>
                     <hr />
                 </div>
-                <div>
+                <div className='card'>
                     <h3 htmlFor=""> Thirth Card </h3>
                     <label htmlFor="">Card Head Text</label>
                     <input
@@ -246,28 +246,28 @@ function FourBox({ ...Props }) {
                     {errors.cardThreeHeadTextArab && <p className="error">{errors.cardThreeHeadTextArab.message}</p>}
 
                     <label htmlFor="">Card Description Text</label>
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in English..."
                         {...register("cardThreeDescriptionTextEng", { required: "Card Description text is required" })}
                     />
                     {errors.cardThreeDescriptionTextEng && <p className="error">{errors.cardThreeDescriptionTextEng.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in Azerbaijan..."
                         {...register("cardThreeDescriptionTextAze", { required: "Card Description text is required" })}
                     />
                     {errors.cardThreeDescriptionTextAze && <p className="error">{errors.cardThreeDescriptionTextAze.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in Russian..."
                         {...register("cardThreeDescriptionTextRus", { required: "Card Description text is required" })}
                     />
                     {errors.cardThreeDescriptionTextRus && <p className="error">{errors.cardThreeDescriptionTextRus.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in Arabic..."
@@ -291,7 +291,7 @@ function FourBox({ ...Props }) {
                     </div>
                     <hr />
                 </div>
-                <div>
+                <div className='card'>
                     <h3 htmlFor=""> Fourth Card </h3>
                     <label htmlFor="">Card Head Text</label>
                     <input
@@ -324,28 +324,28 @@ function FourBox({ ...Props }) {
                     {errors.cardFourHeadTextArab && <p className="error">{errors.cardFourHeadTextArab.message}</p>}
 
                     <label htmlFor="">Card Description Text</label>
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in English..."
                         {...register("cardFourDescriptionTextEng", { required: "Card Description text is required" })}
                     />
                     {errors.cardFourDescriptionTextEng && <p className="error">{errors.cardFourDescriptionTextEng.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in Azerbaijan..."
                         {...register("cardFourDescriptionTextAze", { required: "Card Description text is required" })}
                     />
                     {errors.cardFourDescriptionTextAze && <p className="error">{errors.cardFourDescriptionTextAze.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in Russian..."
                         {...register("cardFourDescriptionTextRus", { required: "Card Description text is required" })}
                     />
                     {errors.cardFourDescriptionTextRus && <p className="error">{errors.cardFourDescriptionTextRus.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Card Description text in Arabic..."

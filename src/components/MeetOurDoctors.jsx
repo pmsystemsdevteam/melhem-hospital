@@ -18,7 +18,7 @@ function MeetOurDoctors({ ...Props }) {
             <button className="close-button" onClick={() => Props.Props.setMeetDoctorsModalIsOpen(false)}>x</button>
             <h2>Meet Our Doctors</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
+                <div className='card'>
                     <label htmlFor="">Meet Our Doctors Head Text </label>
                     <input
                         defaultValue={''}
@@ -49,31 +49,30 @@ function MeetOurDoctors({ ...Props }) {
                     />
                     {errors.MeetDoctorsTextArab && <p className="error">{errors.MeetDoctorsTextArab.message}</p>}
                 </div>
-                <div>
+                <div className='card'>
                     <label htmlFor="">Meet Our Doctors Description Text </label>
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in English..."
                         {...register("MeetOurDoctorsDescriptionEng", { required: "how description is required" })}
                     />
                     {errors.MeetOurDoctorsDescriptionEng && <p className="error">{errors.MeetOurDoctorsDescriptionEng.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Azerbaijan..."
                         {...register("MeetOurDoctorsDescriptionAze", { required: "how description is required" })}
                     />
                     {errors.MeetOurDoctorsDescriptionAze && <p className="error">{errors.MeetOurDoctorsDescriptionAze.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Russian..."
                         {...register("MeetOurDoctorsDescriptionRus", { required: "how description is required" })}
                     />
                     {errors.MeetOurDoctorsDescriptionRus && <p className="error">{errors.MeetOurDoctorsDescriptionRus.message}</p>}
-                    <input
-
+                    <itextarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Arabic..."

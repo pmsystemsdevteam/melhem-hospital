@@ -62,72 +62,78 @@ function HeaderModal({ ...Props }) {
             <button className="close-button" onClick={() => Props.Props.setHeaderModalIsOpen(false)}>x</button>
             <h2>About Melhem Hospital</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
+                <div className='card'>
                     <label htmlFor=""> Header Text </label>
                     <input
                         defaultValue={''}
                         type="text"
-                        placeholder="Type head text in English..."
+                        placeholder="Type head text in English...(max 50 character)"
+                        maxLength={50} // Add maxLength
                         {...register("headerTextEng", { required: "Header text is required" })}
                     />
                     {errors.headerTextEng && <p className="error">{errors.headerTextEng.message}</p>}
                     <input
                         defaultValue={''}
                         type="text"
-                        placeholder="Type head text in Azerbaijan..."
+                        placeholder="Type head text in Azerbaijan...(max 50 character)"
+                        maxLength={50} // Add maxLength
                         {...register("headerTextAze", { required: "Header text is required" })}
                     />
                     {errors.headerTextAze && <p className="error">{errors.headerTextAze.message}</p>}
                     <input
                         defaultValue={''}
                         type="text"
-                        placeholder="Type head text in Russian..."
+                        placeholder="Type head text in Russian...(max 50 character)"
+                        maxLength={50} // Add maxLength
                         {...register("headerTextRus", { required: "Header text is required" })}
                     />
                     {errors.headerTextRus && <p className="error">{errors.headerTextRus.message}</p>}
                     <input
                         defaultValue={''}
                         type="text"
-                        placeholder="Type head text in Arabic..."
+                        placeholder="Type head text in Arabic...(max 50 character)"
+                        maxLength={50} // Add maxLength
                         {...register("headerTextArab", { required: "Header text is required" })}
                     />
                     {errors.headerTextArab && <p className="error">{errors.headerTextArab.message}</p>}
                 </div>
-                <div>
+                <div className='card'>
                     <label htmlFor=""> Header Description </label>
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
-                        placeholder="Type head description in English..."
+                        placeholder="Type head description in English...(max 120 character)"
+                        maxLength={120} // Add maxLength
                         {...register("headerDescriptionEng", { required: "Header description is required" })}
                     />
                     {errors.headerDescriptionEng && <p className="error">{errors.headerDescriptionEng.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
-                        placeholder="Type head description in Azerbaijan..."
+                        placeholder="Type head description in Azerbaijan...(max 120 character)"
+                        maxLength={120} // Add maxLength
                         {...register("headerDescriptionAze", { required: "Header description is required" })}
                     />
                     {errors.headerDescriptionAze && <p className="error">{errors.headerDescriptionAze.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
-                        placeholder="Type head description in Russian..."
+                        placeholder="Type head description in Russian...(max 120 character)"
+                        maxLength={120} // Add maxLength
                         {...register("headerDescriptionRus", { required: "Header description is required" })}
                     />
                     {errors.headerDescriptionRus && <p className="error">{errors.headerDescriptionRus.message}</p>}
-                    <input
-
+                    <textarea
                         defaultValue={''}
                         type="text"
-                        placeholder="Type head description in Arabic..."
+                        placeholder="Type head description in Arabic...(max 120 character)"
+                        maxLength={120} // Add maxLength
                         {...register("headerDescriptionArab", { required: "Header description is required" })}
                     />
                     {errors.headerDescriptionArab && <p className="error">{errors.headerDescriptionArab.message}</p>}
                 </div>
                 <div>
                     <input
-
                         type="file"
                         {...register("headerPhoto", { required: "Header photo is required" })}
                         onChange={(e) => handlePhoto(e)}
@@ -140,6 +146,7 @@ function HeaderModal({ ...Props }) {
                 <button className='btn' type="submit">Submit</button>
             </form>
         </Modal>
+
 
     )
 }

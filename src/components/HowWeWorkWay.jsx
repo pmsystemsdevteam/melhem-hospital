@@ -19,7 +19,7 @@ function HowWeWorkWay({ ...Props }) {
             <button className="close-button" onClick={() => Props.Props.setHowWeWorkWayIsOpen(false)}>x</button>
             <h2>How We Work Way</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
+                <div className='card'>
                     <label htmlFor="">How We Work Way Head Text(first) </label>
                     <input
                         defaultValue={''}
@@ -50,31 +50,30 @@ function HowWeWorkWay({ ...Props }) {
                     />
                     {errors.howOneHeadTextArab && <p className="error">{errors.howOneHeadTextArab.message}</p>}
                 </div>
-                <div>
+                <div className='card'>
                     <label htmlFor="">How We Work Way Description Text(first) </label>
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in English..."
                         {...register("howOneDescriptionEng", { required: "how description is required" })}
                     />
                     {errors.howOneDescriptionEng && <p className="error">{errors.howOneDescriptionEng.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Azerbaijan..."
                         {...register("howOneDescriptionAze", { required: "how description is required" })}
                     />
                     {errors.howOneDescriptionAze && <p className="error">{errors.howOneDescriptionAze.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Russian..."
                         {...register("howOneDescriptionRus", { required: "how description is required" })}
                     />
                     {errors.howOneDescriptionRus && <p className="error">{errors.howOneDescriptionRus.message}</p>}
-                    <input
-
+                    <itextarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Arabic..."
@@ -84,7 +83,7 @@ function HowWeWorkWay({ ...Props }) {
                     <hr />
                 </div>
 
-                <div>
+                <div className='card'>
                     <label htmlFor="">How We Work Way Head Text(second) </label>
                     <input
                         defaultValue={''}
@@ -115,31 +114,30 @@ function HowWeWorkWay({ ...Props }) {
                     />
                     {errors.howTwoHeadTextArab && <p className="error">{errors.howTwoHeadTextArab.message}</p>}
                 </div>
-                <div>
+                <div className='card'>
                     <label htmlFor="">How We Work Way Description Text(second) </label>
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in English..."
                         {...register("howTwoDescriptionEng", { required: "how description is required" })}
                     />
                     {errors.howTwoDescriptionEng && <p className="error">{errors.howTwoDescriptionEng.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Azerbaijan..."
                         {...register("howTwoDescriptionAze", { required: "how description is required" })}
                     />
                     {errors.howTwoDescriptionAze && <p className="error">{errors.howTwoDescriptionAze.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Russian..."
                         {...register("howTwoDescriptionRus", { required: "how description is required" })}
                     />
                     {errors.howTwoDescriptionRus && <p className="error">{errors.howTwoDescriptionRus.message}</p>}
-                    <input
-
+                    <itextarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Arabic..."
@@ -149,7 +147,7 @@ function HowWeWorkWay({ ...Props }) {
                     <hr />
                 </div>
 
-                <div>
+                <div className='card'>
                     <label htmlFor="">How We Work Way Head Text(thirth) </label>
                     <input
                         defaultValue={''}
@@ -180,31 +178,30 @@ function HowWeWorkWay({ ...Props }) {
                     />
                     {errors.howThreeHeadTextArab && <p className="error">{errors.howThreeHeadTextArab.message}</p>}
                 </div>
-                <div>
+                <div className='card'>
                     <label htmlFor="">How We Work Way Description Text(thirth) </label>
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in English..."
                         {...register("howThreeDescriptionEng", { required: "how description is required" })}
                     />
                     {errors.howThreeDescriptionEng && <p className="error">{errors.howThreeDescriptionEng.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Azerbaijan..."
                         {...register("howThreeDescriptionAze", { required: "how description is required" })}
                     />
                     {errors.howThreeDescriptionAze && <p className="error">{errors.howThreeDescriptionAze.message}</p>}
-                    <input
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Russian..."
                         {...register("howThreeDescriptionRus", { required: "how description is required" })}
                     />
                     {errors.howThreeDescriptionRus && <p className="error">{errors.howThreeDescriptionRus.message}</p>}
-                    <input
-
+                    <itextarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Arabic..."
