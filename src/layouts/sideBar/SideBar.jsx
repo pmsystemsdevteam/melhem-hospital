@@ -1,25 +1,29 @@
 import { NavLink } from "react-router"
 import "./SideBar.scss"
-import  logo  from "../../assets/logo_of_melhem.png"
+import logo from "../../assets/logo_of_melhem.png"
 
 function SideBar() {
     const menuLinks = [
         {
             id: 1,
             name: "Home",
-            link: "/home"
+            link: "/admin-home"
+        }, {
+            id: 7,
+            name: "About",
+            link: "/admin-about"
         }, {
             id: 2,
             name: "Doctors",
-            link: "/doctors"
+            link: "/admin-doctors"
         }, {
             id: 3,
             name: "Departments",
-            link: "/departments"
+            link: "/admin-departments"
         }, {
             id: 4,
             name: "Contact",
-            link: "/contact"
+            link: "/admin-contact"
         }, {
             id: 5,
             name: "Our Hospital",

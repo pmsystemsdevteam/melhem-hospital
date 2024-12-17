@@ -1,21 +1,21 @@
 import { useState } from "react";
 import Modal from 'react-modal';
-import FourBox from "../../components/FourBox";
-import HeaderModal from "../../components/HeaderModal";
+import FourBox from "../components/HomeComponents/FourBox";
+import HeaderModal from "../components/HomeComponents/HeaderModal";
 import "./index.scss";
-import OurDepartment from "../../components/OurDepartment";
-import DepartmentCards from "../../components/DepartmentCards";
-import HowWeWork from "../../components/HowWeWork";
-import HowWeWorkWay from "../../components/HowWeWorkWay";
-import MeetOurDoctors from "../../components/MeetOurDoctors";
-import OurBlog from "../../components/OurBlog";
-import WhyChooseUs from "../../components/WhyChooseUs";
-import Appointment from "../../components/Appointment";
-import FaqHead from "../../components/FaqHead";
-import Faq from "../../components/Faq";
-import WhyChooseUsBox from "../../components/WhyChooseUsBox";
-import TestimonialsHead from "../../components/TestimonialsHead";
-import Testimonials from "../../components/Testimonials";
+import OurDepartment from "../components/HomeComponents/OurDepartment";
+import DepartmentCards from "../components/HomeComponents/DepartmentCards";
+import HowWeWork from "../components/HomeComponents/HowWeWork";
+import HowWeWorkWay from "../components/HomeComponents/HowWeWorkWay";
+import MeetOurDoctors from "../components/HomeComponents/MeetOurDoctors";
+import OurBlog from "../components/HomeComponents/OurBlog";
+import WhyChooseUs from "../components/HomeComponents/WhyChooseUs";
+import Appointment from "../components/HomeComponents/Appointment";
+import FaqHead from "../components/HomeComponents/FaqHead";
+import Faq from "../components/HomeComponents/Faq";
+import WhyChooseUsBox from "../components/HomeComponents/WhyChooseUsBox";
+import TestimonialsHead from "../components/HomeComponents/TestimonialsHead";
+import Testimonials from "../components/HomeComponents/Testimonials";
 Modal.setAppElement('#root');
 
 function Home() {

@@ -77,6 +77,9 @@ function DepartmentCards({ ...Props }) {
         },
     ])
 
+
+    const [deletedCardId, setDeletedCardId] = useState(0)
+
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = () => {
         reset()
@@ -122,6 +125,23 @@ function DepartmentCards({ ...Props }) {
         setDepartmentCardsData(departmentCardsData.filter(data => data.id !== id))
     }
 
+    const customStyles = {
+        overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        },
+        content: {
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: "20%",
+            position: "relative",
+            border: "1px solid #773693",
+            borderRadius: "5px",
+            lineHeight: "60px",
+            textAlign: "center",
+        }
+    };
+
     return (
         <Modal
             className={'modal'}
@@ -137,8 +157,49 @@ function DepartmentCards({ ...Props }) {
                 {departmentCardsData.map((item, index) => (
                     <div className="card" key={item?.id}>
                         {departmentCardsData.length > 1 &&
-                            < MdDeleteOutline onClick={() => deleteCard(item?.id)} className="delete-icon" />
+                            <MdDeleteOutline onClick={() => setDeletedCardId(item?.id)} className="delete-icon" />
                         }
+
+                        <Modal
+                            isOpen={deletedCardId === item.id}
+                            onRequestClose={() => setDeletedCardId(0)}
+                            style={customStyles}
+                            contentLabel="Delete Modal"
+                        >
+                            <h2 style={{ color: "#772393" }}>Are you sure?</h2>
+                            <div>
+                                {/* Cancel button with green color */}
+                                <button
+                                    style={{
+                                        backgroundColor: "green",
+                                        color: "white",
+                                        border: "none",
+                                        padding: "10px 20px",
+                                        marginRight: "10px",
+                                        cursor: "pointer",
+                                        borderRadius: "5px"
+                                    }}
+                                    onClick={() => setDeletedCardId(0)} // Assuming you want to close the modal
+                                >
+                                    Cancel
+                                </button>
+
+                                {/* Delete button with red color */}
+                                <button
+                                    style={{
+                                        backgroundColor: "red",
+                                        color: "white",
+                                        border: "none",
+                                        padding: "10px 20px",
+                                        cursor: "pointer",
+                                        borderRadius: "5px"
+                                    }}
+                                    onClick={() => deleteCard(item.id)}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </Modal>
                         <h3 htmlFor=""> {`${index + 1}'th`} Card</h3>
                         <label htmlFor="">Card Head Text</label>
                         <input
@@ -210,6 +271,7 @@ function DepartmentCards({ ...Props }) {
                             />
                             {item.url && <img src={item.url} alt="Preview" />}
                         </div>
+                        <p>Add More</p>
                         <hr />
                     </div>
 

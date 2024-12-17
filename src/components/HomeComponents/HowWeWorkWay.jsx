@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 function HowWeWorkWay({ ...Props }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = (data) => {
-        console.log('jasdlhsaf',data)
+        console.log('jasdlhsaf', data)
         reset()
         Props.Props.setHowWeWorkWayIsOpen(false)
     }
@@ -73,7 +73,7 @@ function HowWeWorkWay({ ...Props }) {
                         {...register("howOneDescriptionRus", { required: "how description is required" })}
                     />
                     {errors.howOneDescriptionRus && <p className="error">{errors.howOneDescriptionRus.message}</p>}
-                    <itextarea
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Arabic..."
@@ -137,7 +137,7 @@ function HowWeWorkWay({ ...Props }) {
                         {...register("howTwoDescriptionRus", { required: "how description is required" })}
                     />
                     {errors.howTwoDescriptionRus && <p className="error">{errors.howTwoDescriptionRus.message}</p>}
-                    <itextarea
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Arabic..."
@@ -201,7 +201,7 @@ function HowWeWorkWay({ ...Props }) {
                         {...register("howThreeDescriptionRus", { required: "how description is required" })}
                     />
                     {errors.howThreeDescriptionRus && <p className="error">{errors.howThreeDescriptionRus.message}</p>}
-                    <itextarea
+                    <textarea
                         defaultValue={''}
                         type="text"
                         placeholder="Type head description in Arabic..."
