@@ -471,23 +471,25 @@ def testimonials_view(request):
 
         # Prepare data for the serializer
         data = {
-            "name": {
-                "eng": request.data.get("testimonialsNameEng", ""),
-                "aze": request.data.get("testimonialsNameAze", ""),
-                "rus": request.data.get("testimonialsNameRus", ""),
-                "arab": request.data.get("testimonialsNameArab", "")
-            },
-            "description": {
-                "eng": request.data.get("testDescEng", ""),
-                "aze": request.data.get("testDescAze", ""),
-                "rus": request.data.get("testDescRus", ""),
-                "arab": request.data.get("testDescArab", "")
-            },
-            "country": {
-                "eng": request.data.get("testimonialsCountryEng", ""),
-                "aze": request.data.get("testimonialsCountryAze", ""),
-                "rus": request.data.get("testimonialsCountryRus", ""),
-                "arab": request.data.get("testimonialsCountryArab", "")
+            {
+                "name": {
+                    "eng": request.data.get("testimonialsNameEng", ""),
+                    "aze": request.data.get("testimonialsNameAze", ""),
+                    "rus": request.data.get("testimonialsNameRus", ""),
+                    "arab": request.data.get("testimonialsNameArab", "")
+                },
+                "description": {
+                    "eng": request.data.get("testDescEng", ""),
+                    "aze": request.data.get("testDescAze", ""),
+                    "rus": request.data.get("testDescRus", ""),
+                    "arab": request.data.get("testDescArab", "")
+                },
+                "country": {
+                    "eng": request.data.get("testimonialsCountryEng", ""),
+                    "aze": request.data.get("testimonialsCountryAze", ""),
+                    "rus": request.data.get("testimonialsCountryRus", ""),
+                    "arab": request.data.get("testimonialsCountryArab", "")
+                }
             }
         }
 
