@@ -4,11 +4,12 @@ rem This file is UTF-8 encoded, so we need to update the current code page while
 for /f "tokens=2 delims=:." %%a in ('"%SystemRoot%\System32\chcp.com"') do (
     set _OLD_CODEPAGE=%%a
 )
+
 if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set "VIRTUAL_ENV=C:\Users\ixbul\OneDrive\Desktop\melhem-hospital\new"
+set "VIRTUAL_ENV=C:\Users\Urfan\Desktop\melhem-hospital\new"
 
 if not defined PROMPT set PROMPT=$P$G
 

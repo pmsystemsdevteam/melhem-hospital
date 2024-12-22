@@ -516,7 +516,6 @@ def testimonials_view(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'GET':
-        # Retrieve all testimonials
         testimonials = Testimonials.objects.all()
         serializer = TestimonialsSerializer(testimonials, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
