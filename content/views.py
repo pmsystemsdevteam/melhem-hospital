@@ -1,6 +1,10 @@
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.response import Response
+import base64
+import cloudinary
 from rest_framework import status
+from cloudinary.uploader import upload
+from django.core.files.base import ContentFile
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from .models import DepartmentCard, Faq, FourBox, HowWeWork, HowWeWorkWay, MeetOurDoctors, OurBlog, OurDepartment, Testimonials, WhyChooseUs, WhyChooseUsBox, FaqHead, Appointment, Header
 from .serializers import DepartmentCardSerializer, FaqSerializer, FourBoxSerializer, HowWeWorkSerializer, HowWeWorkWaySerializer, MeetOurDoctorsSerializer, OurBlogSerializer, OurDepartmentSerializer, TestimonialsSerializer, WhyChooseUsSerializer, WhyChooseUsBoxSerializer, FaqHeadSerializer, AppointmentSerializer, HeaderSerializer
@@ -37,7 +41,6 @@ def appointment_view(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST'])
-@parser_classes([MultiPartParser, FormParser])  # Correct way to use parsers
 def department_cards(request):
     if request.method == 'POST':
         print("Incoming Data:", request.data)
@@ -60,8 +63,24 @@ def department_cards(request):
                     "rus": request.data.get(f"card[{index}].DescriptionTextRus"),
                     "arab": request.data.get(f"card[{index}].DescriptionTextArab"),
                 },
-                "file": request.FILES.get(f"card[{index}].file")  # Get the uploaded file
+                "url": request.data.get(f"card[{index}].url")
             }
+
+            # Handle file upload to Cloudinary
+            if f"card[{index}].file" in request.FILES:
+                result = cloudinary.uploader.upload(
+                    request.FILES[f"card[{index}].file"],
+                    folder="dep_cardImgs/",
+                    invalidate=True
+                )
+                print("Upload Result:", result)  # Debugging
+                card_data["file"] = result["url"]
+
+
+            else:
+                # If no file is provided, set URL to None or retain existing value
+                card_data["url"] = None
+
             data.append(card_data)
             index += 1
 
@@ -70,7 +89,7 @@ def department_cards(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
+
         print("Validation Errors:", serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -81,7 +100,6 @@ def department_cards(request):
         return Response(serializer.data)
 
 @api_view(['GET', 'POST'])
-@parser_classes([MultiPartParser, FormParser, JSONParser]) 
 def faq_list(request):
     if request.method == 'POST':
         print("Incoming Data:", request.data)
@@ -126,11 +144,10 @@ def faq_list(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST'])
-@parser_classes([JSONParser])
 def faq_head_view(request):
     if request.method == 'POST':
         print("Incoming Data:", request.data)
-        
+
         # Process incoming data
         data = {
             "header_text": {
@@ -146,7 +163,7 @@ def faq_head_view(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
+
         print("Validation Errors:", serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -157,7 +174,6 @@ def faq_head_view(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST'])
-@parser_classes([MultiPartParser, FormParser, JSONParser])  # Accept JSON and form-data
 def four_box_view(request):
     if request.method == 'POST':
         print("Incoming Data:", request.data)
@@ -169,8 +185,10 @@ def four_box_view(request):
         if isinstance(request.data, list):  # JSON Input
             card_data_list = request.data
         else:  # Multipart form-data
-            for i in range(1, 20):  # Dynamically process 20 cards
+            for i in range(0, 20):  # Dynamically process 20 cards
                 if f"card{i}logo" in request.FILES:
+                    # Check if the file exists in request.FILES
+                    # Build the card data
                     card_data = {
                         "card_number": i,
                         "head_text": {
@@ -185,9 +203,20 @@ def four_box_view(request):
                             "rus": request.data.get(f"card{i}DescriptionTextRus", ""),
                             "arab": request.data.get(f"card{i}DescriptionTextArab", ""),
                         },
-                        "logo": request.FILES.get(f"card{i}logo"),
                     }
+
+                    # Upload the file to Cloudinary
+                    result = cloudinary.uploader.upload(
+                        request.FILES[f"card{i}logo"],
+                        folder="logos/",
+                        invalidate=True
+                    )
+                    card_data["logo"] = result["url"]
+                    print("Upload Result:", result)
+
+                    # Append the card data to the list
                     card_data_list.append(card_data)
+
 
         # Serialize and save the incoming data
         serializer = FourBoxSerializer(data=card_data_list, many=True)
@@ -205,7 +234,6 @@ def four_box_view(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST'])
-@parser_classes([MultiPartParser, FormParser])  # To handle file uploads and form data
 def header_view(request):
     if request.method == 'POST':
         print("Incoming Data:", request.data)
@@ -225,8 +253,15 @@ def header_view(request):
                 "rus": request.data.get("headerDescriptionRus", ""),
                 "arab": request.data.get("headerDescriptionArab", "")
             },
-            "header_photo": request.FILES.get("headerPhoto")  # Get uploaded image
         }
+
+        result = cloudinary.uploader.upload(
+            request.FILES["header_photo"],
+            folder="headers/",
+            invalidate=True
+        )
+        data["header_photo"] = result["url"]
+        print("Upload Result:", result)
 
         # Serialize and save the data
         serializer = HeaderSerializer(data=data)
@@ -363,7 +398,7 @@ def meet_our_doctors_view(request):
         records = MeetOurDoctors.objects.all()
         serializer = MeetOurDoctorsSerializer(records, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 @api_view(['GET', 'POST'])
 @parser_classes([JSONParser])  # Ensure JSON parsing for incoming requests
 def our_blog_view(request):
@@ -427,9 +462,8 @@ def our_department_view(request):
         departments = OurDepartment.objects.all()
         serializer = OurDepartmentSerializer(departments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 @api_view(['GET', 'POST'])
-@parser_classes([MultiPartParser, FormParser])  # Handle file uploads
 def testimonials_view(request):
     if request.method == 'POST':
         print("Incoming Data:", request.data)
@@ -437,8 +471,6 @@ def testimonials_view(request):
 
         # Prepare data for the serializer
         data = {
-            "profile_image": request.FILES.get("profileFile"),
-            "back_image": request.FILES.get("backFile"),
             "name": {
                 "eng": request.data.get("testimonialsNameEng", ""),
                 "aze": request.data.get("testimonialsNameAze", ""),
@@ -459,12 +491,27 @@ def testimonials_view(request):
             }
         }
 
+        result = cloudinary.uploader.upload(
+            request.FILES["profile_image"],
+            folder="testimonials/profileFile",
+            invalidate=True
+            )
+        data["profile_image"] = result["url"]
+
+        result = cloudinary.uploader.upload(
+            request.FILES["back_image"],
+            folder="testimonials/backFile",
+            invalidate=True
+            )
+        data["back_image"] = result["url"]
+        print("Upload Result:", result)
+
         # Serialize and save the data
         serializer = TestimonialsSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
+
         print("Validation Errors:", serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -473,9 +520,8 @@ def testimonials_view(request):
         testimonials = Testimonials.objects.all()
         serializer = TestimonialsSerializer(testimonials, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 @api_view(['POST', 'GET'])
-@parser_classes([FormParser, MultiPartParser])  # Allow form data
 def why_choose_us_view(request):
     if request.method == 'POST':
         print("Incoming Data:", request.data)  # Debugging purposes
@@ -501,7 +547,7 @@ def why_choose_us_view(request):
         records = WhyChooseUs.objects.all()
         serializer = WhyChooseUsSerializer(records, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
@@ -510,7 +556,6 @@ from .serializers import WhyChooseUsBoxSerializer
 from .models import WhyChooseUsBox
 
 @api_view(['POST', 'GET'])
-@parser_classes([MultiPartParser, FormParser])
 def why_choose_us_box_view(request):
     if request.method == 'POST':
         print("Incoming Data:", request.data)
@@ -518,10 +563,8 @@ def why_choose_us_box_view(request):
 
         # Parse and structure the data for the serializer
         data = {
-            "back_image": request.FILES.get("backFile"),
             "cards": [
                 {
-                    "logo": request.FILES.get("cardOneLogo"),
                     "head_text": {
                         "eng": request.data.get("cardOneHeadTextEng", ""),
                         "aze": request.data.get("cardOneHeadTextAze", ""),
@@ -529,14 +572,13 @@ def why_choose_us_box_view(request):
                         "arab": request.data.get("cardOneHeadTextArab", ""),
                     },
                     "description_text": {
-                        "eng": request.data.get("cardOneHeadTextEng", ""),
-                        "aze": request.data.get("cardOneHeadTextAze", ""),
-                        "rus": request.data.get("cardOneHeadTextRus", ""),
-                        "arab": request.data.get("cardOneHeadTextArab", ""),
+                        "eng": request.data.get("cardOneDescTextEng", ""),
+                        "aze": request.data.get("cardOneDescTextAze", ""),
+                        "rus": request.data.get("cardOneDescTextRus", ""),
+                        "arab": request.data.get("cardOneDescTextArab", ""),
                     },
                 },
                 {
-                    "logo": request.FILES.get("cardTwoLogo"),
                     "head_text": {
                         "eng": request.data.get("cardTwoHeadTextEng", ""),
                         "aze": request.data.get("cardTwoHeadTextAze", ""),
@@ -544,14 +586,13 @@ def why_choose_us_box_view(request):
                         "arab": request.data.get("cardTwoHeadTextArab", ""),
                     },
                     "description_text": {
-                        "eng": request.data.get("cardTwoHeadTextEng", ""),
-                        "aze": request.data.get("cardTwoHeadTextAze", ""),
-                        "rus": request.data.get("cardTwoHeadTextRus", ""),
-                        "arab": request.data.get("cardTwoHeadTextArab", ""),
+                        "eng": request.data.get("cardTwoDescTextEng", ""),
+                        "aze": request.data.get("cardTwoDescTextAze", ""),
+                        "rus": request.data.get("cardTwoDescTextRus", ""),
+                        "arab": request.data.get("cardTwoDescTextArab", ""),
                     },
                 },
                 {
-                    "logo": request.FILES.get("cardThreeLogo"),
                     "head_text": {
                         "eng": request.data.get("cardThreeHeadTextEng", ""),
                         "aze": request.data.get("cardThreeHeadTextAze", ""),
@@ -559,14 +600,44 @@ def why_choose_us_box_view(request):
                         "arab": request.data.get("cardThreeHeadTextArab", ""),
                     },
                     "description_text": {
-                        "eng": request.data.get("cardThreeHeadTextEng", ""),
-                        "aze": request.data.get("cardThreeHeadTextAze", ""),
-                        "rus": request.data.get("cardThreeHeadTextRus", ""),
-                        "arab": request.data.get("cardThreeHeadTextArab", ""),
+                        "eng": request.data.get("cardThreeDescTextEng", ""),
+                        "aze": request.data.get("cardThreeDescTextAze", ""),
+                        "rus": request.data.get("cardThreeDescTextRus", ""),
+                        "arab": request.data.get("cardThreeDescTextArab", ""),
                     },
                 }
             ]
         }
+        result = cloudinary.uploader.upload(
+            request.FILES["back_image"],
+            folder="why_back_image",
+            invalidate=True
+            )
+        data["back_image"] = result["url"]
+
+        result = cloudinary.uploader.upload(
+            request.FILES["cardOneLogo"],
+            folder="card_logo/one",
+            invalidate=True
+            )
+        data["cards"][0]["logo"] = result["url"]
+
+        result = cloudinary.uploader.upload(
+            request.FILES["cardTwoLogo"],
+            folder="card_logo/two",
+            invalidate=True
+            )
+        data["cards"][1]["logo"] = result["url"]
+
+        result = cloudinary.uploader.upload(
+            request.FILES["cardThreeLogo"],
+            folder="card_logo/three",
+            invalidate=True
+            )
+        data["cards"][2]["logo"] = result["url"]
+
+
+
 
         # Serialize the data
         serializer = WhyChooseUsBoxSerializer(data=data)
