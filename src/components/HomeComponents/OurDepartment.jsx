@@ -1,13 +1,41 @@
 
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 function OurDepartment({ ...Props }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
 
-    const onSubmit = () => {
-        reset();
-        Props.Props.setOurDepartmentModalIsOpen(false);
+    const onSubmit = async (data) => {
+        const allData = {
+            id: null,
+            head_text: {
+                eng: data.departmentHeadTextEng,
+                aze: data.departmentHeadTextAze,
+                rus: data.departmentHeadTextRus,
+                arab: data.departmentHeadTextArab
+            },
+            description_text: {
+                eng: data.departmentDescriptionEng,
+                aze: data.departmentDescriptionAze,
+                rus: data.departmentDescriptionRus,
+                arab: data.departmentDescriptionArab
+            }
+        }
+        try {
+            await axios.post('https://858253a8-656d-4a88-b704-5f0fe268bd97-00-239z73hq99tyi.sisko.replit.dev/api/v1/our-department/', allData, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            // setIsLoading(false)
+            reset();
+            Props.Props.setOurDepartmentModalIsOpen(false);
+            // setfileURL(null)
+        } catch (error) {
+            // setIsLoading(false)
+            console.log('error', error.message)
+        }
     };
 
 

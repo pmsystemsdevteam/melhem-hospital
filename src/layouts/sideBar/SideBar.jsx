@@ -7,27 +7,27 @@ function SideBar() {
         {
             id: 1,
             name: "Home",
-            link: "/admin-home"
+            link: "/admin/home"
         }, {
             id: 7,
             name: "About",
-            link: "/admin-about"
+            link: "/admin/about"
         }, {
             id: 2,
             name: "Doctors",
-            link: "/admin-doctors"
+            link: "/admin/doctors"
         }, {
             id: 3,
-            name: "Departments",
-            link: "/admin-departments"
+            name: "News",
+            link: "/admin/news"
         }, {
             id: 4,
             name: "Contact",
-            link: "/admin-contact"
+            link: "/admin/contact"
         }, {
             id: 5,
-            name: "Our Hospital",
-            link: "/our-hospital"
+            name: "Technology",
+            link: "/admin/technology"
         }, {
             id: 6,
             name: "Get Appointments",

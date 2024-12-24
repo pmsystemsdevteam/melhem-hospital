@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from 'react-modal';
 import { MdDeleteOutline } from "react-icons/md";
+import { FaArrowRight } from "react-icons/fa6";
+import { useNavigate } from "react-router";
 Modal.setAppElement('#root');
 
 
@@ -76,6 +78,8 @@ function DepartmentCards({ ...Props }) {
             file: null
         },
     ])
+
+    const navigate = useNavigate()
 
 
     const [deletedCardId, setDeletedCardId] = useState(0)
@@ -271,7 +275,7 @@ function DepartmentCards({ ...Props }) {
                             />
                             {item.url && <img src={item.url} alt="Preview" />}
                         </div>
-                        <p>Add More</p>
+                        <div onClick={() => navigate('/admin/home/department-details')} style={{ display: "flex", gap: "10px", cursor: "pointer" }}><p>Add More</p><FaArrowRight /></div>
                         <hr />
                     </div>
 

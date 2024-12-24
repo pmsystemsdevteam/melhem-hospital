@@ -1,13 +1,34 @@
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 function Appointment({ ...Props }) {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const onSubmit = () => {
-        console.log('form submitted')
-        reset()
-        Props.Props.setAppointmentModalIsOpen(false)
+    const onSubmit = async (data) => {
+        const allData = {
+            appointment_text: {
+                eng: data.appTextEng,
+                aze: data.appTextAze,
+                rus: data.appTextRus,
+                arab: data.appTextArab
+            }
+        }
+        const formData = new FormData()
+        formData.append('appointment_text', JSON.stringify(allData))
+        try {
+            await axios.post('https://858253a8-656d-4a88-b704-5f0fe268bd97-00-239z73hq99tyi.sisko.replit.dev/api/v1/appointment/', allData, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            reset()
+            Props.Props.setAppointmentModalIsOpen(false)
+            // setIsLoading(false)
+        } catch (error) {
+            // setIsLoading(false)
+            console.log('error', error.message)
+        }
     }
     return (
 

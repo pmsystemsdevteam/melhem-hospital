@@ -88,7 +88,6 @@ function MeetSpecialists({ ...Props }) {
                         {...register("meetSpecialistsDescriptionArab", { required: "how description is required" })}
                     />
                     {errors.meetSpecialistsDescriptionArab && <p className="error">{errors.meetSpecialistsDescriptionArab.message}</p>}
-                    <hr />
                 </div>
                 <button className='btn' type="submit">Submit</button>
             </form>

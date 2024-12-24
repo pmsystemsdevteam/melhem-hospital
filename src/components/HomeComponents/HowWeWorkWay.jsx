@@ -1,12 +1,60 @@
 
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 function HowWeWorkWay({ ...Props }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const onSubmit = (data) => {
-        console.log('jasdlhsaf', data)
-        reset()
-        Props.Props.setHowWeWorkWayIsOpen(false)
+    const onSubmit = async (data) => {
+        const allData = {
+            id: null,
+            head_text_one: {
+                eng: data.howOneHeadTextEng,
+                aze: data.howOneHeadTextAze,
+                rus: data.howOneHeadTextRus,
+                arab: data.howOneHeadTextArab
+            },
+            description_text_one: {
+                eng: data.howOneDescriptionEng,
+                aze: data.howOneDescriptionAze,
+                rus: data.howOneDescriptionRus,
+                arab: data.howOneDescriptionArab
+            },
+            head_text_two: {
+                eng: data.howTwoHeadTextEng,
+                aze: data.howTwoHeadTextAze,
+                rus: data.howTwoHeadTextRus,
+                arab: data.howTwoHeadTextArab
+            },
+            description_text_two: {
+                eng: data.howTwoDescriptionEng,
+                aze: data.howTwoDescriptionAze,
+                rus: data.howTwoDescriptionRus,
+                arab: data.howTwoDescriptionArab
+            },
+            head_text_three: {
+                eng: data.howThreeHeadTextEng,
+                aze: data.howThreeHeadTextAze,
+                rus: data.howThreeHeadTextRus,
+                arab: data.howThreeHeadTextArab
+            },
+            description_text_three: {
+                eng: data.howThreeDescriptionEng,
+                aze: data.howThreeDescriptionAze,
+                rus: data.howThreeDescriptionRus,
+                arab: data.howThreeDescriptionArab
+            }
+        }
+        try {
+            await axios.post('https://858253a8-656d-4a88-b704-5f0fe268bd97-00-239z73hq99tyi.sisko.replit.dev/api/v1/how-we-work-way/', {
+                ...allData,
+            })
+            reset()
+            Props.Props.setHowWeWorkWayIsOpen(false)
+            // setIsLoading(false)
+        } catch (error) {
+            // setIsLoading(false)
+            console.log('error', error.message)
+        }
     }
     return (
         <Modal

@@ -1,11 +1,39 @@
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 function MeetOurDoctors({ ...Props }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const onSubmit = (data) => {
-        console.log('jasdlhsaf', data)
-        reset()
-        Props.Props.setMeetDoctorsModalIsOpen(false)
+    const onSubmit = async (data) => {
+        // setIsLoading(true)
+        const allData = {
+            id: null,
+            head_text: {
+                aze: data.MeetDoctorsTextEng,
+                rus: data.MeetDoctorsTextAze,
+                eng: data.MeetDoctorsTextRus,
+                arab: data.MeetDoctorsTextArab
+            },
+            description_text: {
+                aze: data.MeetOurDoctorsDescriptionEng,
+                rus: data.MeetOurDoctorsDescriptionAze,
+                eng: data.MeetOurDoctorsDescriptionRus,
+                arab: data.MeetOurDoctorsDescriptionArab
+            },
+        }
+        try {
+            await axios.post('https://858253a8-656d-4a88-b704-5f0fe268bd97-00-239z73hq99tyi.sisko.replit.dev/api/v1/meet-our-doctors/', allData, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            // setIsLoading(false)
+
+            reset()
+            Props.Props.setMeetDoctorsModalIsOpen(false)
+        } catch (error) {
+            // setIsLoading(false)
+            console.log('error', error.message)
+        }
     }
     return (
         <Modal

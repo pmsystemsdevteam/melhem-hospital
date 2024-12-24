@@ -7,7 +7,9 @@
     height: 100%;
     gap: 20px;
     background: rgb(220, 220, 220);
-    position: relative;
+    position: absolute;
+    top: 0;
+    right: 0;
 
 
     .home-head {
@@ -108,10 +110,12 @@
         cursor: pointer;
         transition: all 0.3s ease;
         width: 220px;
+        display: flex;
+        justify-content: center;
 
         &:hover {
-            background: #773693;
-            color: white;
+            // background: #773693;
+            color: #773693;
             transform: translateY(-3px);
         }
     }

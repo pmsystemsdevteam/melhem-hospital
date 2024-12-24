@@ -1,48 +1,57 @@
 
+import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import ReactLoading from 'react-loading';
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
 function HeaderModal({ ...Props }) {
     const [fileURL, setfileURL] = useState(null);
     const [headerPhotoFile, setHeaderPhotoFile] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
 
-    // const text = {
-    //     headText: [
-    //         { aze: "asfljf" },
-    //         { rus: "asfljf" },
-    //         { eng: "asfljf" },
-    //         { arab: "asfljf" },
-    //     ],
-    //     headDesc: [
-    //         { aze: "asfljf" },
-    //         { eng: "asfljf" },
-    //         { rus: "asfljf" },
-    //         { arab: "asfljf" },
-    //     ]
-    // }
-
-    // text.headDesc.map(item=>item.aze)
-
-
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+        setIsLoading(true);
         const formData = new FormData();
-        formData.append("headerTextEng", data.headerTextEng);
-        formData.append("headerTextAze", data.headerTextAze);
-        formData.append("headerTextRus", data.headerTextRus);
-        formData.append("headerTextArab", data.headerTextArab);
-        formData.append("headerDescriptionEng", data.headerDescriptionEng);
-        formData.append("headerDescriptionAze", data.headerDescriptionAze);
-        formData.append("headerDescriptionRus", data.headerDescriptionRus);
-        formData.append("headerDescriptionArab", data.headerDescriptionArab);
-        formData.append("headerPhoto", headerPhotoFile);
+        const texts = {
+            id: 1,
+            header_text: {
+                aze: data.headerTextAze,
+                rus: data.headerTextRus,
+                eng: data.headerTextEng,
+                arab: data.headerTextArab
+            },
+            header_description: {
+                aze: data.headerDescriptionAze,
+                rus: data.headerDescriptionRus,
+                eng: data.headerDescriptionEng,
+                arab: data.headerDescriptionArab
+            },
+        };
+        formData.append("data", JSON.stringify(texts)); // Stringify the object
+        formData.append("header_photo", headerPhotoFile); // Append the file
 
-        reset();
-        Props.Props.setHeaderModalIsOpen(false);
+        try {
+            await axios.post(
+                'https://858253a8-656d-4a88-b704-5f0fe268bd97-00-239z73hq99tyi.sisko.replit.dev/api/v1/header/',
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data', // Ensure correct headers
+                    },
+                }
+            );
+            setIsLoading(false);
+            reset(); // Reset form
+            Props.Props.setHeaderModalIsOpen(false); // Close modal
+            setfileURL(null); // Clear file URL
+        } catch (error) {
+            setIsLoading(false);
+            console.error('error', error.message);
+        }
     };
-
 
     const handlePhoto = (e) => {
         const file = e.target.files[0];
@@ -50,6 +59,14 @@ function HeaderModal({ ...Props }) {
         setHeaderPhotoFile(file)
         setfileURL(objectUrl);
     };
+
+    // const getData = async () => {
+    //     const response = await axios.get('http://127.0.0.1:8000/api/v1/header')
+    //     console.log('resp', response.data)
+    // }
+    // useEffect(() => {
+    //     getData()
+    // }, [])
 
     return (
         <Modal
@@ -131,19 +148,19 @@ function HeaderModal({ ...Props }) {
                         {...register("headerDescriptionArab", { required: "Header description is required" })}
                     />
                     {errors.headerDescriptionArab && <p className="error">{errors.headerDescriptionArab.message}</p>}
+                    <div className='file'>
+                        <input
+                            type="file"
+                            {...register("header_photo", { required: "Header photo is required" })}
+                            onChange={(e) => handlePhoto(e)}
+                        />
+                        {fileURL &&
+                            <img src={fileURL} alt="Preview" />
+                        }
+                        {errors.header_photo && <p className="error">{errors.header_photo.message}</p>}
+                    </div>
                 </div>
-                <div>
-                    <input
-                        type="file"
-                        {...register("headerPhoto", { required: "Header photo is required" })}
-                        onChange={(e) => handlePhoto(e)}
-                    />
-                    {errors.headerPhoto && <p className="error">{errors.headerPhoto.message}</p>}
-                </div>
-                {fileURL &&
-                    <img src={fileURL} alt="Preview" />
-                }
-                <button className='btn' type="submit">Submit</button>
+                <button className='btn' type="submit">{isLoading ? <ReactLoading type='spin' color='#773693' height={'15px'} width={'15px'} /> : "Submit"}</button>
             </form>
         </Modal>
 

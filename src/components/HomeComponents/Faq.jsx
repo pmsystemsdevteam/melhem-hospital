@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { MdDeleteOutline } from 'react-icons/md';
 import Modal from 'react-modal';
 
+export const addOtherFaq = 5
+
 function Faq({ ...Props }) {
     const [faq, setFaq] = useState([
         { id: 1, question: [{ eng: "", aze: "", rus: "", arab: '' }], answer: [{ eng: "", aze: "", rus: "", arab: '' }] },

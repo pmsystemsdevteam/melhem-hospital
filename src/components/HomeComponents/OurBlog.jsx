@@ -1,12 +1,32 @@
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 function OurBlog({ ...Props }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const onSubmit = () => {
-        console.log('form submitted')
-        reset()
-        Props.Props.setOurBlogModalIsOpen(false)
+    const onSubmit = async (data) => {
+        const allData = {
+            id: null,
+            header_text: {
+                eng: data.headerTextEng,
+                aze: data.headerTextAze,
+                rus: data.headerTextRus,
+                arab: data.headerTextArab
+            }
+        }
+        try {
+            await axios.post('https://858253a8-656d-4a88-b704-5f0fe268bd97-00-239z73hq99tyi.sisko.replit.dev/api/v1/our-blog/', allData, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            reset()
+            Props.Props.setOurBlogModalIsOpen(false)
+            // setIsLoading(false)
+        } catch (error) {
+            // setIsLoading(false)
+            console.log('error', error.message)
+        }
     }
     return (
         <Modal
